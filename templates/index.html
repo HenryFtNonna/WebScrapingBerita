@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>ArMoCI Scraping</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Web Scraping Detik.com</h1>
+
+        <form action="{{ url_for('run_scraping') }}" method="GET">
+            <button type="submit" class="btn btn-info">Run Scraping</button>
+        </form>
+        <br>
+
+        {% if results %}
+            <h2 class="mt-4">Scraping Results:</h2>
+            <ul class="pl-0">
+                {% for result in results %}
+                    <li class="mb-4 p-4">
+                        <strong>{{ result['headline'] }}</strong><br>
+                        Date: {{ result['date'] }}<br>
+                        Link: <a href="{{ result['link'] }}" target="_blank">{{ result['link'] }}</a><br>
+                        Content: {{ result['content'] }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div>
+            {{ table_html|safe }}
+        </div>
+    </div>
+</body>
+</html>
